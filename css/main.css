@@ -30,3 +30,33 @@ button#search
 	color:white;
 	border:3px solid white;
 }
+
+h3
+{
+	font-weight: bolder;
+}
+
+h3,h4,h5
+{
+	color:white;
+	text-align: center;
+	font-family: roboto;
+}
+
+a
+{
+	color:white;
+	text-decoration: none;
+}
+.change:hover
+{
+	background-color: white;
+	color:#cc0000;
+}
+
+.header
+{
+	color:white;
+	font-size:36px;
+	font-family: roboto;
+}

@@ -9,6 +9,7 @@ var options = {
 const url = 'https://www.googleapis.com/youtube/v3/search';
 
 $('#search').click(function () {
+
 	var searchval = $('#search-text').val();
 	if(searchval.trim()=='')
 	{
@@ -29,7 +30,8 @@ $('#search').click(function () {
 			options.key='AIzaSyDrIjtZL37bAg9hZz6uIetFCkCHS-xa7Zc' //api_key_;
 		}
 	}
-
+	options.q = searchval;
+	$('#search-results').empty();
 	$.getJSON(url,options,showSearchResult)
 });
 
@@ -38,11 +40,14 @@ function showSearchResult(data)
 	var items = data.items;
 	var snippet='',tubeUrl='',thumbnails='',imgUrl='',imgHeight='',imgWidth='';
 	var title='',channel='',description='';
+	var dsgn='';
+	$('#search-results').empty();
 	for(var x = 0; x < items.length; x++)
 	{
 		snippet = items[x].snippet;
-		tubeUrl = 'https://www.youtube.com/watch?v=' + items[x].videoId;
-		thumbnails=snippet.thumbnails.high;
+		console.log(items[x])
+		tubeUrl = 'https://www.youtube.com/watch?v=' + items[x].id.videoId;
+		thumbnails=snippet.thumbnails.medium;
 		imgUrl = thumbnails.url;
 		imgHeight = thumbnails.height; 
 		imgWidth = thumbnails.width;
@@ -50,22 +55,29 @@ function showSearchResult(data)
 		channel=snippet.channelTitle;
 		description=snippet.description; 
 		
-	$("<div class='row'>"+
-		"<div class='col-12'>"+
-
-		"</div>"+
-	  "</div>"
-	);
-
-
-
-
-
+		dsgn = $("<div class='row' style='border:1px solid white;border-radius:2px;padding-top:3px;padding-bottom:3px;margin:3px auto;'>"+
+					"<div class='col-12'>"+
+						"<div class='col-4'>"+
+							"<a href='"+tubeUrl+"' target='_blank' >"+
+								"<img src='"+imgUrl+"' height='"+imgHeight+"' width='"+imgWidth+"' alt='search-thumbnail'/>"+
+							"</a>"+
+						"</div>"+
+						"<div class='col-6' style='margin-left:15px;'>"+
+							"<a href='"+tubeUrl+"' target='_blank' >"+
+								"<h3><span class='change'>"+title+"<span></h3>"+
+							"</a>"+
+							"<h4>By "+
+								"<a href='https://www.youtube.com/channel/"+snippet.channelId+"' target='_blank'>"+
+									"<span class='change'><em>"+channel+"</em></span>"+
+								"</a>"+
+							"</h4>"+
+							"<h5>"+description+"</h5>"+
+						"</div>"+
+					"</div>"+
+		  		"</div>");
+		$('#search-results').append(dsgn);
 	}
-
-
-
-	console.log(data);
+	$('#search-text').val('');
 }
 
 // AIzaSyDrIjtZL37bAg9hZz6uIetFCkCHS-xa7Zc
