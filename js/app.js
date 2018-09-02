@@ -19,15 +19,15 @@ $('#search').click(function () {
 	
 	if(options.key=='')
 	{
-		// var api_key_ = prompt('Please Enter your youtube Api key');
-		// if(api_key_==null || api_key_.trim()=='')
-		// {
-		// 	alert('Your requst has been cancelled');
-		// 	return;
-		// }
-		// else
+		var api_key_ = prompt('Please Enter your youtube Api key');
+		if(api_key_==null || api_key_.trim()=='')
 		{
-			options.key='AIzaSyDrIjtZL37bAg9hZz6uIetFCkCHS-xa7Zc' //api_key_;
+			alert('Your requst has been cancelled');
+			return;
+		}
+		else
+		{
+			options.key=api_key_;
 		}
 	}
 	options.q = searchval;
@@ -80,4 +80,3 @@ function showSearchResult(data)
 	$('#search-text').val('');
 }
 
-// AIzaSyDrIjtZL37bAg9hZz6uIetFCkCHS-xa7Zc
